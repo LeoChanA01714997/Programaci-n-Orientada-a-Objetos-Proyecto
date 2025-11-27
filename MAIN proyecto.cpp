@@ -1,24 +1,34 @@
 int main() {
 
-    // Vector2D
+    // 1. Vector2D
     Vector2D v1(3.0, 4.0);
-    std::cout << "Magnitud del vector: " << v1.magnitud() << std::endl;
+    std::cout << "Magnitud: " << v1.magnitud() << "\n";
     v1.imprimir();
 
-    //CuerpoCeleste
-    CuerpoCeleste planeta("Planeta X", 5.9e24, Vector2D(1.0e6, 2.0e6));
+    // 2. CuerpoCeleste
+    CuerpoCeleste planeta(
+        "Planeta Azul",
+        5.9e24,
+        Vector2D(1.0e6, 2.0e6),
+        Vector2D(500.0, -200.0)
+    );
+
     planeta.imprimirDatos();
-    planeta.mover(1000.0, -500.0);
-    std::cout << "Despues de mover:\n";
+    planeta.mover(1000.0, 500.0);
+    planeta.actualizarVelocidad(Vector2D(0.2, -0.1), 5.0);
+    planeta.actualizarPosicion(5.0);
+
+    std::cout << "Después de actualizar:\n";
     planeta.imprimirDatos();
 
-    //RenderConfig
+    // 3. RenderConfig
     RenderConfig config(800, 800, 1e6);
     config.imprimir();
 
-    auto coords = config.convertir(Vector2D(2.0e6, -1.0e6));
+    auto pantalla = config.convertir(Vector2D(2.0e6, -1.0e6));
     std::cout << "Coordenadas convertidas: (" 
-              << coords.first << ", " << coords.second << ")" << std::endl;
+              << pantalla.first << ", " << pantalla.second << ")\n";
 
     return 0;
 }
+
