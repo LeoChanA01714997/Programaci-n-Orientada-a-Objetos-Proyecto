@@ -1,0 +1,28 @@
+Proyecto: 
+Continuación de proyecto iniciado en python:
+Simulación de Órbita Newtoniana (F = G·m₁·m₂ / r²) usando el método Euler–Cromer
+CONTEXTO: 
+El proyecto implementa una simulación de una órbita newtoniana en la cual un planeta se 
+mueve bajo la influencia gravitatoria de una estrella fija ubicada en el centro del sistema. 
+La dinámica del movimiento se calcula empleando la ley de gravitación universal F=G (m1m2)/r^2. y se integra numéricamente utilizando el método Euler–Cromer, que garantiza estabilidad y conservación aproximada de la energía en movimientos orbitales.
+La intención es migrar la versión original escrita en Python (con Pygame) hacia una implementación en C++ conservando la lógica física, pero utilizando una librería gráfica compatible con C++ para la visualización.
+
+Funcionalidad: 
+-El programa permitirá inicialiar un programa compuesto por una estrella fija en el centro, y un planeta que orbita a su alrededor con velocidad incial circular. 
+-También permitirá calcular la aceleración gravitatoria en cada paso temporal, actualizar la velocidad y posición mediante el método Euler–Cromer, generar y almacenar la trayectoria del planeta para su visualización.
+-Dibujar en una ventana gráfica con: 
+    La estrella en el centro.
+    El planeta en movimiento.
+    El recorrido completo del planeta a lo largo del tiempo.
+
+-Mantener un ciclo de simulación estable con actualización gráfica constante.
+
+
+Consideraciones: 
+El programa separará la lógica en múltiples archivos .h y .cpp. 
+Para la visualización se requiere instalar una librería gráfica compatible con C++, (por determinar) 
+La simulación se ejecuta en tiempo real, por lo que debe tener un control de fotogramas para evitar sobrecargar el CPU. 
+Las unidades físicas deben mantenerse coherentes (metros, kilogramos y segundos) como se acostumbra en física.
+La escala gráfica convierte metros a píxeles para representar la órbita en pantalla.
+El programa requiere una compilación enlazando la librería gráfica; el comando dependerá del sistema operativo y de la librería seleccionada.
+La estrella se modela como cuerpo fijo para evitar complejidad innecesaria.
