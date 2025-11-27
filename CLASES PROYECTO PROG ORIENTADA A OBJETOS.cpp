@@ -1,3 +1,6 @@
+#ifndef VECTOR2D_H
+#define VECTOR2D_H
+
 #include <iostream>
 #include <cmath>
 
@@ -24,34 +27,69 @@ public:
         return Vector2D(x + v.x, y + v.y);
     }
 
+    Vector2D escalar(double k) const {
+        return Vector2D(x * k, y * k);
+    }
+
     void imprimir() const {
-        std::cout << "Vector(" << x << ", " << y << ")" << std::endl;
+        std::cout << "Vector(" << x << ", " << y << ")\n";
     }
 };
 
+#endif
+
+
+#ifndef CUERPOCELESTE_H
+#define CUERPOCELESTE_H
+
+#include <iostream>
+#include <string>
+#include "Vector2D.h"
 
 class CuerpoCeleste {
 private:
     std::string nombre;
     double masa;
     Vector2D posicion;
+    Vector2D velocidad;
 
 public:
-    CuerpoCeleste(const std::string& nombre, double masa, const Vector2D& pos)
-        : nombre(nombre), masa(masa), posicion(pos) {}
+    CuerpoCeleste(const std::string& nombre, double masa,
+                  const Vector2D& pos, const Vector2D& vel)
+        : nombre(nombre), masa(masa), posicion(pos), velocidad(vel) {}
 
     void mover(double dx, double dy) {
         posicion.setX(posicion.getX() + dx);
         posicion.setY(posicion.getY() + dy);
     }
 
+    void actualizarVelocidad(const Vector2D& aceleracion, double dt) {
+        velocidad = velocidad.sumar(aceleracion.escalar(dt));
+    }
+
+    void actualizarPosicion(double dt) {
+        posicion = posicion.sumar(velocidad.escalar(dt));
+    }
+
     void imprimirDatos() const {
-        std::cout << "Cuerpo: " << nombre << "\n"
-                  << "Masa: " << masa << " kg\n"
-                  << "Posicion: ";
+        std::cout << "\n[Cuerpo Celeste]\n";
+        std::cout << "Nombre: " << nombre << "\n";
+        std::cout << "Masa: " << masa << " kg\n";
+        std::cout << "Posicion: ";
         posicion.imprimir();
+        std::cout << "Velocidad: ";
+        velocidad.imprimir();
     }
 };
+
+#endif
+
+#ifndef RENDERCONFIG_H
+#define RENDERCONFIG_H
+
+#include <iostream>
+#include <utility>
+#include "Vector2D.h"
 
 class RenderConfig {
 private:
@@ -70,35 +108,11 @@ public:
     }
 
     void imprimir() const {
-        std::cout << "RenderConfig -> ancho: " << ancho
-                  << ", alto: " << alto
-                  << ", escala: " << escala << std::endl;
+        std::cout << "\n[RenderConfig]\n";
+        std::cout << "Ancho: " << ancho
+                  << "  Alto: " << alto
+                  << "  Escala: " << escala << "\n";
     }
 };
 
-
-int main() {
-
-    // Vector2D
-    Vector2D v1(3.0, 4.0);
-    std::cout << "Magnitud del vector: " << v1.magnitud() << std::endl;
-    v1.imprimir();
-
-    //CuerpoCeleste
-    CuerpoCeleste planeta("Planeta X", 5.9e24, Vector2D(1.0e6, 2.0e6));
-    planeta.imprimirDatos();
-    planeta.mover(1000.0, -500.0);
-    std::cout << "Despues de mover:\n";
-    planeta.imprimirDatos();
-
-    //RenderConfig
-    RenderConfig config(800, 800, 1e6);
-    config.imprimir();
-
-    auto coords = config.convertir(Vector2D(2.0e6, -1.0e6));
-    std::cout << "Coordenadas convertidas: (" 
-              << coords.first << ", " << coords.second << ")" << std::endl;
-
-    return 0;
-}
- 
+#endif
