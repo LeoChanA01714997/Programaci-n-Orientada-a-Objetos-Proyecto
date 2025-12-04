@@ -8,6 +8,21 @@ calcula la trayectoria paso a paso (método de Euler) y la dibuja con la estrell
 Funcionalidad: 
 -El usuario puede iniciar o pausar la simulación, reiniciarla, hacer zoom y cambiar parámetros básicos, como la posición o velocidad inicial, el paso de tiempo, o las masas de los cuerpos)
 para observar órbitas más circulares o elípticas.
+-Se puede usar en dos modos:
+1. ventana con SFML (C++17, CMake≥3.16 y SFML 2.6. Compila con (cmake -S cpp -B build && cmake --build build --config Release)
+Y ejecuta ./build/OrbitSim en Linux/macOS o en Windows --> build\Release\OrbitSim.exe
+
+Controles: Space iniciar/pausar, R reiniciar, +/− o rueda zoom, T estela) 
+(compila con g++ -std=c++17 -O2 -Iinclude src/*.cpp -o run y ejecuta ./run 
+
+---- Si se desea usar otros cuerpos celestes, se deben editar los datos en main.cpp 
+
+Condiciones bajo las que no funciona:
+-- no hay ninguna estrella en el sistema 
+-- el dt es muy grande 
+-- los cuerpos se colocan en la misma posicion 
+-- masas menores o iguales a 0
+-- velocidades iniciales muy grandes (salen del display) 
 
 Consideraciones: 
 El programa separará la lógica en múltiples archivos .h y .cpp. 
