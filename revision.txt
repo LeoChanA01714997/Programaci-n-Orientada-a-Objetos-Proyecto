@@ -1,0 +1,4 @@
+Revision Avance 1 y Avance 2: 
+de Avance 1 se corrigió el README, dando instrucciones de ejecución y compatibilidad, así como se corrigieron los atributos de la clase Vector2D (de private a protected) 
+
+de Avance 2 se corrigió el diagrama UML 
