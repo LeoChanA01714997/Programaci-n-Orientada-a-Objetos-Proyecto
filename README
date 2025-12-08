@@ -1,37 +1,52 @@
 Proyecto: 
 Continuación de proyecto iniciado en python:
 Simulación de Órbita Newtoniana (F = G·m₁·m₂ / r²) usando el método Euler–Cromer
+NO REQUIERE INSTALACIÓN DE LIBRERÍA EXTERNA (únicamente compilador de g++) 
+
 CONTEXTO: 
-Este proyecto aborda el "problema" de visualizar órbitas, es decir, cómo un planeta se mueve alrededor de una estrella por gravedad newtoniana; el programa simula la órbita en 2D,
-calcula la trayectoria paso a paso (método de Euler) y la dibuja con la estrella en un foco. 
+Este proyecto implementa una simulación de una órbita newtoniana simple en 2D, basada en la interacción gravitatoria entre una estrella fija y uno o varios planetas.
+El objetivo es estudiar y visualizar, a través de datos numéricos en consola (como se haría en un laboratorio de astrofísica), cómo evoluciona la trayectoria de un cuerpo bajo el efecto de la gravedad,
+resolviendo las ecuaciones diferenciales mediante el método Euler–Cromer. 
+El proyecto es una continuación de una idea iniciada originalmente en Python, pero reescrita completamente en C++.
 
 Funcionalidad: 
--El usuario puede iniciar o pausar la simulación, reiniciarla, hacer zoom y cambiar parámetros básicos, como la posición o velocidad inicial, el paso de tiempo, o las masas de los cuerpos)
-para observar órbitas más circulares o elípticas.
--Se puede usar en dos modos:
-1. ventana con SFML (C++17, CMake≥3.16 y SFML 2.6. Compila con (cmake -S cpp -B build && cmake --build build --config Release)
-Y ejecuta ./build/OrbitSim en Linux/macOS o en Windows --> build\Release\OrbitSim.exe
+-El programa Simula el movimiento orbital de planetas alrededor de una estrella usando física newtoniana.
+-Muestra en consola, cada cierto número de pasos, la posición y velocidad de cada cuerpo.
+- Dentro del código del programa, es posible modificar: 
+   -Masa de la estrella 
+   -Posición y velocidad inicial de los planetas (diferente posicion y velocidad afectarán su orbita y sus datos).
+   -Pasos de integración
+   -Numero de iteraciones. 
+-Permite agregar cuantos planetas se desee en main.cpp
 
-Controles: Space iniciar/pausar, R reiniciar, +/− o rueda zoom, T estela) 
-(compila con g++ -std=c++17 -O2 -Iinclude src/*.cpp -o run y ejecuta ./run 
-
----- Si se desea usar otros cuerpos celestes, se deben editar los datos en main.cpp 
-
-Condiciones bajo las que no funciona:
--- no hay ninguna estrella en el sistema 
--- el dt es muy grande 
+Condiciones bajo las que no funciona correctamente:
+-- No se define ninguna estrella en el sistema.
+-- el dt es muy grande (el método de Euler requiere pequeños pasos temporales en el diferencial para disminuir el erro numérico) 
 -- los cuerpos se colocan en la misma posicion 
 -- masas menores o iguales a 0
 -- velocidades iniciales muy grandes (salen del display) 
 
 Consideraciones: 
 El programa separará la lógica en múltiples archivos .h y .cpp. 
--compilar con CMake y SFML 2.6
-La simulación se ejecuta en tiempo real, por lo que debe tener un control de fotogramas para evitar sobrecargar el CPU. 
 Las unidades físicas deben mantenerse coherentes (metros, kilogramos y segundos) como se acostumbra en física.
-La escala gráfica convierte metros a píxeles para representar la órbita en pantalla.
-El programa requiere una compilación enlazando la librería gráfica; el comando dependerá del sistema operativo y de la librería seleccionada.
-La estrella se modela como cuerpo fijo para evitar complejidad innecesaria.
 
 Compatibilidad:
-Windows 10/11, Ubuntu 22.04 y macOS 12+ con GPU integrada; no requiere aceleración 3D avanzada.
+Funciona en cualquier sistema operativo con un compilador de C++
+
+COMPILACIÓN: 
+1. Abrir la terminal en la carpeta del proyecto
+2. Compilar:
+   g++ CuerpoCeleste.cpp Sistema.cpp Vector2D.cpp mainn.cpp -o orbitas.exe
+3. Ejecutar: 
+   ./orbitas.exe
+
+CORRECIONES REALIZADAS: 
+Problemas de estabilidad numérica en pasos grandes (en dt), el método de euler, al ser una ecuacion diferencial, requiere incrementos pequeños en el tiempo
+para tener un margen de error numérico bajo, y al usar un dt muy grande la orbita se hacía insetable, por lo que se disminuyó el dt. (en el código se encuentra en en main)
+El proyecto evolucionó de una simulación gráfica usando la librería SFML, a una imulación por consola limpia, portable y completamente funcional, con física correcta y código modular, como una que sería usada en un laboratorio de datos para cálculos astrofísicos. 
+Todo esto, debido a que el equipo computacional del programador no contaba con los requisitos necesarios para correr la simulación, pues el equipo se sobrecalentaba y fallaba, lo que resultaba en no poder observar en su totalidad la simulación. 
+Por dicha razón el proyecto se modificó a uno más apto para el equipo del programador (: 
+Estas correciones pertenecen a la subcompetencia: 
+Implementa-SICT0303A
+
+
